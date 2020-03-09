@@ -1,0 +1,363 @@
+\documentclass[10pt, letter]{article}
+
+\usepackage{nopageno}
+\usepackage[margin=0.4in]{geometry}
+\usepackage{amsmath}
+\usepackage{setspace}
+\setstretch{0.9}
+\usepackage{qtree}
+
+\title{CS 331 - Assignment 1}
+\author{Martin Mueller}
+\date{Due: Fri., Feb. $14^{th}$, 2020 @ 08:30}
+
+\begin{document}
+	\maketitle
+	\begin{enumerate}
+		\item (15 points) Consider the following BNF grammar $G_{1}$:
+		\begin{verbatim}
+			<sentence> ::= <noun phrase> <verb phrase>
+			<noun phrase> ::= <determiner> <noun> | <determiner> <noun> <relative clause>
+			<verb phrase> ::= <verb> | <verb> <noun phrase>
+			<relative clause> ::= that <noun phrase> <verb>
+			<noun> ::= boy | girl | cat | telescope | song | feather
+			<determiner> ::= a | the
+			<verb> ::= saw | touched | surprised | sang
+		\end{verbatim}
+		Prove with a parse tree, or disprove using the simplest, most CONCISE irrefutable logical argument, that each one of the following {\tt <sentence>}s can be parsed using $G_{1}$:
+		\begin{itemize}
+			\item (3 points) the cat that a boy saw surprised the girl. \\
+			{
+			\tt
+			\footnotesize
+			\qtreecenterfalse
+			\Tree
+			[
+				.<sentence>
+				[
+					.<noun\ phrase>
+					[
+						.<determiner>
+							\fbox{the}
+					]
+					[
+						.<noun>
+							\fbox{cat}
+					]
+					[
+						.<relative\ clause>
+							\fbox{that}
+						[
+							.<noun\ phrase>
+							[
+								.<determiner>
+									\fbox{a}
+							]
+							[
+								.<noun>
+									\fbox{boy}
+							]
+						]
+						[
+							.<verb>
+								\fbox{saw}
+						]
+					]
+				]!\qsetw{4in}
+				[
+					.<verb\ phrase>
+					[
+						.<verb>
+							\fbox{surprised}
+					]
+					[
+						.<noun\ phrase>
+						[
+							.<determiner>
+								\fbox{the}
+						]
+						[
+							.<noun>
+								\fbox{girl}
+						]
+					]
+				]
+			]
+			}
+			\item (3 points) a boy the girl saw sang. \\
+			\begin{center}
+				\fbox{Not possible.} Every sentence is made of a {\tt <noun phrase>} followed by a {\tt <verb phrase>}. Since the word "that" is absent from the sentence, the first production defining a {\tt <noun phrase>} would fit here to construct "a boy". Due to the nature of {\tt <verb phrase>}s, a {\tt <verb>} would need to either stand alone or precede a {\tt <noun phrase>}. Since the next word following "boy" is an article (or {\tt <determiner>} as it's called here) and not a {\tt <verb>}, this sentence cannot be parsed from $G_{1}$.
+			\end{center}
+			\item (3 points) the girl saw the telescope that that boy touched.
+			\begin{center}
+				{
+				\tt
+				\footnotesize
+				\qtreecenterfalse
+				\Tree
+				[
+					.<sentence>
+					[
+						.<noun\ phrase>
+						[
+							.<determiner>
+								\fbox{the}
+						]
+						[
+							.<noun>
+								\fbox{girl}
+						]
+					]
+					[
+						.<verb\ phrase>
+						[
+							.<verb>
+								\fbox{saw}
+						]
+						[
+							.<noun\ phrase>
+							[
+								.<determiner>
+									\fbox{the}
+							]
+							[
+								.<noun>
+									\fbox{telescope}
+							]
+							[
+								.<relative\ clause>
+									\fbox{that}
+								[
+									.<noun\ phrase>
+									[
+										.<determiner>
+											\fbox{the}
+									]
+									[
+										.<noun>
+											\fbox{boy}
+									]
+								]
+								[
+									.<verb>
+										\fbox{touched}
+								]
+							]!\qsetw{2in}
+						]
+					]
+				]
+				}
+			\end{center}
+			\item (3 points) the girl that the cat that the boy touched saw sang a song.
+			\begin{center}
+				{
+				\tt
+				\footnotesize
+				\qtreecenterfalse
+				\Tree
+				[
+					.<sentence>
+					[
+						.<noun\ phrase>
+						[
+							.<determiner>
+								\fbox{the}
+						]
+						[
+							.<noun>
+								\fbox{girl}
+						]
+						[
+							.<relative\ clause>
+								\fbox{that}
+							[
+								.<noun\ phrase>
+								[
+									.<determiner>
+										\fbox{the}
+								]
+								[
+									.<noun>
+										\fbox{cat}
+								]
+								[
+									.<relative\ clause>
+										\fbox{that}
+									[
+										.<noun\ phrase>
+										[
+											.<determiner>
+												\fbox{the}
+										]
+										[
+											.<noun>
+												\fbox{boy}
+										]
+									]
+									[
+										.<verb>
+											\fbox{touched}
+									]
+								]!\qsetw{1in}
+							]!\qsetw{1in}
+							[
+								.<verb>
+									\fbox{saw}
+							]
+						]!\qsetw{1.6in}
+					]!\qsetw{3.5in}
+					[
+						.<verb\ phrase>
+						[
+							.<verb>
+								\fbox{sang}
+						]
+						[
+							.<noun\ phrase>
+							[
+								.<determiner>
+									\fbox{a}
+							]
+							[
+								.<noun>
+									\fbox{song}
+							]
+						]
+					]
+				]
+				}
+			\end{center}
+			\item (3 points) the telescope sang a feather.
+			\begin{center}
+				{
+				\tt
+				\footnotesize
+				\qtreecenterfalse
+				\Tree
+				[
+					.<sentence>
+					[
+						.<noun\ phrase>
+						[
+							.<determiner>
+								\fbox{the}
+						]
+						[
+							.<noun>
+								\fbox{telescope}
+						]
+					]
+					[
+						.<verb\ phrase>
+						[
+							.<verb>
+								\fbox{sang}
+						]
+						[
+							.<noun\ phrase>
+							[
+								.<determiner>
+									\fbox{a}
+							]
+							[
+								.<noun>
+									\fbox{feather}
+							]
+						]
+					]
+				]
+				}
+			\end{center}
+		\end{itemize}
+		\pagebreak
+		\item (10 points) Write a BNF grammar (with {\tt <s>} as its start symbol) for the set of ALL (and ONLY) the strings that are made of 0 or more occurrences, in any order, of the letters $a$ and/or $b$ in which the total number of occurrences of the letter $a$ is even. \\
+		\begin{align*}
+			\text{\tt <s> } &::= \text{ \tt <t><a><a> | <a><t><a> | <a><a><t> | <t>} \\
+			\text{\tt <t> } &::= \text{ \tt <s>b | b<s> | <s> | } \epsilon
+		\end{align*}
+		\item (10 points) Write an EBNF grammar for the same language as in the previous problem. For full credit, your answer must use the EBNF extensions WHENEVER possible in order to minimize the number of non-terminals and productions. \\
+		\begin{center}
+			{\tt <s> ::= ((b)*a(b)*a(b)*)*}
+		\end{center}
+		\item (5 points) Consider the following BNF grammar $G_{4}$ that defines {\tt expression}s (that is, {\tt <expression>} is the start symbol of the grammar):
+		\begin{verbatim}
+			<expression> ::= <thing> | <thing> op1 <expression>
+			<object> ::= <element> | <element> op2 <object>
+			<thing> ::= <object> | <thing> op3 <object> 
+			<element> ::= a | b | c | ( <object> )
+		\end{verbatim}
+		\begin{itemize}
+			\item (2 points) List the three operators in $G_{4}$ from left to right in order of precedence, from highest to lowest.
+			\begin{center}
+				op2, op3, op1
+			\end{center}
+			\item (3 points) For each operator in $G_{4}$, state if it is left- or right-associative.
+			\begin{center}
+				op1 = right-associative \\
+				op2 = right-associative \\
+				op3 = left-associative
+			\end{center}
+		\end{itemize}
+		\item (10 points) Consider a fictitious programming language containing only two numerical types (integer and real), in which arbitrarily long (possibly empty) 1-dimensional arrays of numbers are declared, instantiated, and initialized in a single statement, two of which are given below:
+		\begin{verbatim}
+			integer[] numbers = { 1, 5, 7, 9, 10 };
+			real[] reals = { 2.0, 3.35, 1.24, 54.145, -4.9 };
+		\end{verbatim}
+		Write an EBNF grammar with {\tt <a>} as its start symbol that can generate {\bf all} and {\bf only} the syntactically correct array declarations of this form. Instead of creating rules to generate the set of all possible identifiers (variable names), integer constants, and floating point constants, your grammar must refer to the non-terminals {\tt <id>}, {\tt <int>}, and {\tt <real>}, which can be assumed to be already defined elsewhere. (To think about: Why does it make sense for these non terminals to be defined in another grammar, or in a distinct part of the grammar?) \\ \\
+		For full credit, you MUST use EBNF extensions WHENEVER possible to minimize the number of productions in your grammar.
+		\begin{align*}
+			\text{\tt <s> ::= } &\text{\tt integer[] <id> = \{ (<int>(, <int>)*)? \};} \\
+			&\text{\tt | real[] <id> = \{ (<real>(, <real>)*)? \};}
+		\end{align*}
+		\item (10 points) Consider the following two alternative BNF grammar fragments for defining conditional statements:
+		\begin{verbatim}
+			<statement> ::= <assignment stmt> | <cond stmt1> | <while stmt> | ...
+			<cond stmt1> ::= if <boolean expr> then <statement> endif
+			<cond stmt1> ::= if <boolean expr> then <statement> else <statement> endif
+		\end{verbatim}
+		\begin{verbatim}
+			<statement> ::= <assignment stmt> | <cond stmt2> | <while stmt> | ...
+			<cond stmt2> ::= if <boolean expr> then <statement>
+			<cond stmt2> ::= if <boolean expr> then <statement> else <statement>
+		\end{verbatim}
+		Are these two grammars equivalent, or is one better than the other in some way? Justify your answer precisely. Hint: Think about the important properties that grammars (NOT the language) may have and argue that these two grammars share exactly the same important properties, or that one has an important property that the other one does not have.
+		\begin{center}
+			These grammars are nearly the same, but there is one key difference. The first grammar solves the dangling else problem. The first grammar removes any ambiguity relating to the placement of {\tt else} in nested {\tt if} statements since each {\tt if} statement always ends with an {\tt endif}. In contrast, the second grammar would have an unresolved logical issue with nested {\tt if} statements. If some nested {\tt if} statements contained {\tt else}s and others did not, then it may not be clear which {\tt else}s go along with which {\tt if}s without some special rule.
+		\end{center}
+		\item (5 points) Is the following grammar ambiguous? Remember to prove your answer as concisely as possible. \\ \\
+		{\tt
+			<game> ::= <one-player> | <two-player> \\
+			<one-player> ::= solitaire | minesweeper | $\epsilon$ \\
+			<two-player> ::= chess | backgammon | $\epsilon$ \\
+		}
+		\begin{center}
+			This grammar is ambiguous because it has two different parse trees that produce the same terminals:
+			\linebreak
+			\linebreak
+			{
+			\tt
+			\qtreecenterfalse
+			\Tree
+			[
+				.<game>
+				[
+					.<one-player>
+						\fbox{$\epsilon$}
+				]
+			] \hspace{0.2\textwidth}
+			}
+			{
+			\tt
+			\qtreecenterfalse
+			\Tree
+			[
+				.<game>
+				[
+					.<two-player>
+						\fbox{$\epsilon$}
+				]
+			]
+			}
+		\end{center}
+	\end{enumerate}
+\end{document}
