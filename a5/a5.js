@@ -1,19 +1,44 @@
 var fp = require('./fp');
 
 if ( ! exports ) {
-    var exports = [ ];
+  var exports = [ ];
 }
 
 var weightedSum = function (ns,ws) {
-
-    var helper = function (  /* ??? */ ) {
-
-	/* implement this function */
-
-    };
-    
-    // hint: call the helper function here before returning
-    
+  var helper = function (ns, ws, k) {
+    if (fp.isNull(ws)) {
+      if (fp.isNull(ns)) {
+        return k(0);
+      } else {
+        return "Too few weights provided!";
+      }
+    } else if (fp.isNull(ns)) {
+      return k(0);
+    } else if (fp.isLT(fp.hd(ws), 0)) {
+      throw new Error("Negative weight detected!");
+    } else if (fp.isEq(fp.hd(ws), 0)) {
+      return helper(fp.tl(ns), fp.tl(ws), k);
+    } else if (fp.isEq(fp.hd(ws), 1)) {
+      return helper(fp.tl(ns), fp.tl(ws),
+        function(x) {
+          return k(fp.add(x, fp.hd(ns)));
+        }
+      );
+    } else if (fp.isEq(fp.hd(ns), 1)) {
+      return helper(fp.tl(ns), fp.tl(ws),
+        function(x) {
+          return k(fp.add(x, fp.hd(ws)));
+        }
+      );
+    } else {
+      return helper(fp.tl(ns), fp.tl(ws),
+        function(x) {
+          return k(fp.add(x, fp.mul(fp.hd(ns), fp.hd(ws))));
+        }
+      );
+    }
+  };
+  return helper(ns, ws, function(x) {return x;});
 };
 
 // a few test cases
