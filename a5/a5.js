@@ -1,3 +1,10 @@
+/*************************************
+   CS 331 - A5
+
+   your name(s): Martin Mueller & Isaiah Ley
+
+ *************************************/
+
 var fp = require('./fp');
 
 if ( ! exports ) {
